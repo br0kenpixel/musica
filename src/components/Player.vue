@@ -84,18 +84,14 @@ const MAX_TITLE_LEN = 64;
 const MAX_DESC_LEN = 84;
 const PLAY_ICONS = ["mdi-pause", "mdi-play", "mdi-play"];
 
-import { usePlayerStore } from '../stores/player';
-
 export default {
     expose: ['displaySongInfo', 'reset'],
 
     data() {
-        const playerStore = usePlayerStore();
         const counter = new Counter(0, () => { });
 
         return {
             loading: false,
-            playerStore: playerStore,
             counter: counter as Counter,
             realTitle: "-",
             description: "-",
