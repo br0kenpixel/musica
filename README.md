@@ -8,7 +8,7 @@
 
 # Features
 - [x] No telemetry
-- Supported audio files
+- Supported audio formats
   - [ ] MP3
   - [x] FLAC
   - [ ] OGG
