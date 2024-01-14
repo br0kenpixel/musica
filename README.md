@@ -16,6 +16,17 @@
     - [ ] Word-synced
 - [x] Dark mode
 
+# Building
+
+### macOS & Windows
+No extra setup is needed for these systems.
+
+### Linux
+You'll need to install some C libraries. You can find most of them [here](https://tauri.app/v1/guides/getting-started/prerequisites#setting-up-linux).
+
+You may need to install the following libraries too:
+- `libasound2-dev`
+
 # Dependencies
 - [Rust](https://rustlang.org/)
   - [Tauri](https://crates.io/crates/tauri) - Framework for building desktop applications.
