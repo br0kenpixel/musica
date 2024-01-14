@@ -1824,7 +1824,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "sndfile",
  "tauri",
  "tauri-build",
  "tokio",
@@ -2905,27 +2904,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4dccd0940a2dcdf68d092b8cbab7dc0ad8fa938bf95787e1b916b0e3d0e8e970"
 
 [[package]]
-name = "sndfile"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e5af4266ce8db5ac8ab182aa1739afdd6cbffc46a1fcce770ee3795dd7280ff1"
-dependencies = [
- "lazy_static",
- "sndfile-sys",
-]
-
-[[package]]
-name = "sndfile-sys"
-version = "0.2.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3bbcd2e6363a833ce9a61c808fa46e5502af69c31d59d94ea16369228f60ed5b"
-dependencies = [
- "libc",
- "pkg-config",
- "vcpkg",
-]
-
-[[package]]
 name = "soup2"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3751,12 +3729,6 @@ name = "valuable"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "830b7e5d4d90034032940e4ace0d9a9a057e7a45cd94e6c007832e39edb82f6d"
-
-[[package]]
-name = "vcpkg"
-version = "0.2.15"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426"
 
 [[package]]
 name = "version-compare"

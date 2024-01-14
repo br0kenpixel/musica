@@ -2,8 +2,8 @@ use crate::{
     dialog, storage,
     types::{Format, Track},
 };
-use sndfile::{ReadOptions, TagType};
-use std::{fs, path::PathBuf, time::Duration};
+use lofty::{Accessor, AudioFile, Probe, Tag, TaggedFileExt};
+use std::{fs, path::PathBuf};
 
 pub struct LibraryDb {
     pub tracks: Vec<Track>,
@@ -37,28 +37,23 @@ impl LibraryDb {
     fn get_tracks(files: &[PathBuf]) -> Vec<Track> {
         let mut tracklist = Vec::new();
 
-        let unknown_creator = || "Unknown".to_string();
-
         for (id, file) in files.iter().enumerate() {
-            let Ok(mut info) = sndfile::OpenOptions::ReadOnly(ReadOptions::Auto).from_path(file)
-            else {
+            let Ok(probe) = Probe::open(file) else {
                 continue;
             };
 
-            let title = info
-                .get_tag(TagType::Title)
-                .unwrap_or_else(|| file.with_extension("").display().to_string());
-            let album = info.get_tag(TagType::Album).unwrap_or_else(unknown_creator);
-            let artist = info
-                .get_tag(TagType::Artist)
-                .unwrap_or_else(unknown_creator);
+            let Ok(info) = probe.read() else {
+                continue;
+            };
 
-            let samplerate = info.get_samplerate();
-            let n_frames = info.len().unwrap();
-            let length = n_frames as f64 / samplerate as f64;
+            let (title, album, artist) = Self::get_tag_info(info.primary_tag());
+            let properties = info.properties();
+
+            let samplerate = properties.sample_rate().unwrap();
+            let length = properties.duration();
             let format = Format {
                 file_format: file.extension().unwrap().into(),
-                sample_rate: info.get_samplerate() as u32,
+                sample_rate: samplerate,
             };
 
             tracklist.push(Track {
@@ -67,11 +62,25 @@ impl LibraryDb {
                 album,
                 artist,
                 format,
-                length: Duration::from_secs_f64(length),
+                length,
                 path: file.clone(),
             });
         }
 
         tracklist
+    }
+
+    fn get_tag_info(tag: Option<&Tag>) -> (String, String, String) {
+        let Some(tag) = tag else {
+            return (String::new(), String::new(), String::new());
+        };
+
+        let unknown_creator = || "Unknown".to_string();
+
+        let title = tag.title().map_or_else(unknown_creator, Into::into);
+        let album = tag.album().map_or_else(unknown_creator, Into::into);
+        let artist = tag.artist().map_or_else(unknown_creator, Into::into);
+
+        (title, album, artist)
     }
 }
