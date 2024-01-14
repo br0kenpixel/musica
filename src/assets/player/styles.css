@@ -1,0 +1,18 @@
+.transparent-color {
+    background-color: transparent !important;
+}
+
+.time-text {
+    font-size: 13px;
+}
+
+#song-description {
+    font-size: 13px;
+    color: gray;
+    margin: 0;
+    padding: 0;
+}
+
+#song-title {
+    font-size: 14px;
+}

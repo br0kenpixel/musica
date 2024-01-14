@@ -1,0 +1,30 @@
+[package]
+name = "musica"
+version = "0.0.0"
+description = "A Tauri App"
+authors = ["you"]
+license = ""
+repository = ""
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "1.5", features = [] }
+
+[dependencies]
+tauri = { version = "1.5", features = ["shell-open", "dialog"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+homedir = "0.2.1"
+kira = "0.8.6"
+derive_more = { version = "0.99.17", default-features = false, features = [
+    "display",
+] }
+tokio = { version = "1.35.1", default-features = false, features = ["fs"] }
+tauri-types = "0.0.2"
+sndfile = "0.1.1"
+serde_with = "3.4.0"
+
+[features]
+# this feature is used for production builds or when `devPath` points to the filesystem
+# DO NOT REMOVE!!
+custom-protocol = ["tauri/custom-protocol"]

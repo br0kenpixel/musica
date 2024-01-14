@@ -1,0 +1,14 @@
+body * {
+    cursor: default !important;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    overflow: hidden !important;
+}
+
+.router-link {
+    color: unset;
+    text-decoration: unset;
+}

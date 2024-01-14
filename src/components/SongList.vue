@@ -1,0 +1,49 @@
+<script setup lang="ts">
+import { prettifyTime } from '../backend/helpers';
+import { type Song } from '../backend/types';
+import '../assets/songlist/styles.css';
+</script>
+
+<template>
+    <v-data-table id="songlist" :items="songs" :headers="(headers as any)" @dblclick:row="trackSelected"></v-data-table>
+</template>
+
+<script lang="ts">
+export default {
+    expose: ['songs'],
+    emits: ['selected'],
+
+    data() {
+        return {
+            songs: [] as Array<Song>,
+            headers: [
+                { title: "Title", key: "title" },
+                { title: "Album", key: "album" },
+                { title: "Artist", key: "artist" },
+                { title: "Format", key: "format" },
+                { title: "Length", key: "length", value: (item: Song) => prettifyTime(item.length) },
+            ]
+        }
+    },
+    methods: {
+        resized() {
+            const table = document.getElementById("songlist")!;
+            const winheight = window.innerHeight;
+
+            table.style.height = `${winheight - 138}px`;
+        },
+        trackSelected(_event: any, { item }: any) {
+            this.$emit("selected", item);
+        }
+    },
+    mounted() {
+        this.resized();
+    },
+    created() {
+        window.addEventListener("resize", this.resized);
+    },
+    destroyed() {
+        window.removeEventListener("resize", this.resized);
+    },
+}
+</script>
