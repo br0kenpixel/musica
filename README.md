@@ -4,6 +4,8 @@
 </p>
 <p align="center">Cross-platform offline music player.</p>
 
+ CI: [![Test](https://github.com/br0kenpixel/musica/actions/workflows/rust-test.yml/badge.svg?branch=main)](https://github.com/br0kenpixel/musica/actions/workflows/rust-test.yml) [![publish](https://github.com/br0kenpixel/musica/actions/workflows/tauri-publish.yml/badge.svg)](https://github.com/br0kenpixel/musica/actions/workflows/tauri-publish.yml)
+
 # Features
 - [x] No telemetry
 - Supported audio files
