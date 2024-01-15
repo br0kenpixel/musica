@@ -146,6 +146,12 @@ export default {
     watch: {
         theme(_old, _new) {
             this.save();
+        },
+        home_page(_old, _new) {
+            this.save();
+        },
+        library_scan(_old, _new) {
+            this.save();
         }
     }
 }
