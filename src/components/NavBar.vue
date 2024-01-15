@@ -2,6 +2,7 @@
 import { getVersion } from '@tauri-apps/api/app';
 import '../assets/navbar/styles.css';
 import { RouterLink } from 'vue-router';
+import { build_type } from '../backend/backend';
 </script>
 
 <template>
@@ -43,10 +44,12 @@ export default {
         this.displayAppVersion();
     },
     methods: {
-        displayAppVersion() {
-            getVersion().then((version) => {
-                this.appVersion = version;
-            });
+        async displayAppVersion() {
+            this.appVersion = await getVersion();
+
+            if (await build_type() === "debug") {
+                this.appVersion += "-debug";
+            }
         }
     }
 }

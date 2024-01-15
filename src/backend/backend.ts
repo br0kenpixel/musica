@@ -1,6 +1,10 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import { Settings, Song } from "./types";
 
+export async function build_type(): Promise<string> {
+    return await invoke("build_type");
+}
+
 export async function get_settings(): Promise<Settings> {
     return await invoke("get_settings");
 }

@@ -48,6 +48,7 @@ fn main() {
             commands::playback::resume_playback,
             commands::playback::stop_playback,
             commands::playback::set_volume,
+            commands::exec::build_type,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
