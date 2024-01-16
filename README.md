@@ -40,7 +40,7 @@ You may need to install the following libraries too:
   - [Kira](https://crates.io/crates/kira) - Audio playback library.
   - [sndfile](https://crates.io/crates/sndfile) - Reading audio metadata.
   - [Tokio](https://crates.io/crates/tokio) - Async framework.
-- [Bun](https://bun.sh/) - JS Runtime
+- [NPM](https://www.npmjs.com/)
 - [Vue.js](https://vuejs.org/)
 - [Vite](https://vitejs.dev/)
 - [Vue Router](https://router.vuejs.org/)
