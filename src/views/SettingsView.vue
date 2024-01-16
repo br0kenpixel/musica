@@ -130,9 +130,15 @@ export default {
                 home: this.home_page
             };
         },
-        async save() {
+        lock(message: string) {
             this.locked = true;
-            this.wait_text = "Loading...";
+            this.wait_text = message;
+        },
+        release() {
+            this.locked = false;
+        },
+        async save() {
+            this.lock("Loading...");
 
             const settings = this.into_settings();
             await update_settings(settings);
@@ -141,23 +147,21 @@ export default {
                 this.save_error = true;
             }
 
-            this.locked = false;
+            this.release();
         },
         async reload_lib() {
-            this.locked = true;
-            this.wait_text = "Reloading library...";
+            this.lock("Reloading library...");
 
             await reload_library();
 
-            this.locked = false;
+            this.release();
         },
         async erase_history() {
-            this.locked = true;
-            this.wait_text = "Reloading library...";
+            this.lock("Clearing history...");
 
             await clear_history();
 
-            this.locked = false;
+            this.release();
         }
     },
     watch: {
