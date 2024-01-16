@@ -25,6 +25,8 @@
 ### Basics
 You need to install the Rust toolchain according the documentation [here](https://www.rust-lang.org/learn/get-started). Next, follow the [Tauri documentation](https://tauri.app/v1/guides/getting-started/prerequisites) to install the required tools and libraries.
 
+For building the frontend follow the *Quick Start* guide [here](https://vuejs.org/guide/quick-start.html).
+
 ### macOS & Windows
 No extra setup is needed for these systems.
 
