@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTheme } from 'vuetify';
-import { get_config_path, get_data_dir, get_library_path, get_settings, reload_library, save_settings, update_settings } from '../backend/backend';
+import { clear_history, get_config_path, get_data_dir, get_library_path, get_settings, reload_library, save_settings, update_settings } from '../backend/backend';
 import { Settings } from '../backend/types';
 import { setTheme } from '../theme';
 
@@ -80,9 +80,18 @@ function updateTheme(theme: string) {
 
         <div style="height: 30px;"></div>
 
-        <v-btn prepend-icon="mdi-reload" color="blue" :disabled="locked" @click="reload_lib">
-            Rescan library
-        </v-btn>
+        <form class="row row-cols-lg-auto g-3 align-items-center">
+            <div class="col-12">
+                <v-btn prepend-icon="mdi-reload" color="blue" :disabled="locked" @click="reload_lib">
+                    Rescan library
+                </v-btn>
+            </div>
+            <div class="col-12">
+                <v-btn prepend-icon="mdi-trash-can" color="red" :disabled="locked" @click="erase_history">
+                    Clear history
+                </v-btn>
+            </div>
+        </form>
     </div>
 </template>
 
@@ -139,6 +148,14 @@ export default {
             this.wait_text = "Reloading library...";
 
             await reload_library();
+
+            this.locked = false;
+        },
+        async erase_history() {
+            this.locked = true;
+            this.wait_text = "Reloading library...";
+
+            await clear_history();
 
             this.locked = false;
         }

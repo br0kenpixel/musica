@@ -2,6 +2,7 @@
 import { prettifyTime } from '../backend/helpers';
 import { type Song } from '../backend/types';
 import '../assets/songlist/styles.css';
+import { update_history } from '../backend/backend';
 </script>
 
 <template>
@@ -32,8 +33,9 @@ export default {
 
             table.style.height = `${winheight - 138}px`;
         },
-        trackSelected(_event: any, { item }: any) {
+        async trackSelected(_event: any, { item }: any) {
             this.$emit("selected", item);
+            await update_history(item.id);
         }
     },
     mounted() {

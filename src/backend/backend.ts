@@ -56,3 +56,15 @@ export async function stop_playback() {
 export async function set_volume(value: number) {
     await invoke("set_volume", { value: value });
 }
+
+export async function get_history(): Promise<Array<Song>> {
+    return await invoke("get_history");
+}
+
+export async function update_history(trackid: number) {
+    await invoke("update_history", { with: trackid });
+}
+
+export async function clear_history() {
+    await invoke("clear_history");
+}

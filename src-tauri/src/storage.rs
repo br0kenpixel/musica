@@ -14,6 +14,10 @@ pub fn library_path() -> PathBuf {
     app_dir().join("Library")
 }
 
+pub fn history_path() -> PathBuf {
+    app_dir().join("history.json")
+}
+
 fn home_dir() -> PathBuf {
     match get_my_home() {
         Ok(Some(path)) => path,

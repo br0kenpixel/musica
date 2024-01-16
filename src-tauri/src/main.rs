@@ -10,6 +10,7 @@
 )]
 
 use db::LibraryDb;
+use history::HistoryDb;
 use player::GlobalPlayer;
 use settings::Settings;
 use std::{fs, io::ErrorKind};
@@ -19,6 +20,7 @@ mod commands;
 mod db;
 mod dialog;
 mod events;
+mod history;
 mod player;
 mod settings;
 mod storage;
@@ -28,12 +30,19 @@ fn main() {
     ensure_dirs();
     let settings = RwLock::new(Settings::new_or_load());
     let player = GlobalPlayer::new();
-    let library = RwLock::new(LibraryDb::new());
+
+    let library = LibraryDb::new();
+    let mut history = HistoryDb::new();
+    history.cleanup_with(&library);
+
+    let library = RwLock::new(library);
+    let history = RwLock::new(history);
 
     tauri::Builder::default()
         .manage(player)
         .manage(settings)
         .manage(library)
+        .manage(history)
         .invoke_handler(tauri::generate_handler![
             commands::settings::get_settings,
             commands::settings::update_settings,
@@ -49,6 +58,9 @@ fn main() {
             commands::playback::stop_playback,
             commands::playback::set_volume,
             commands::exec::build_type,
+            commands::history::get_history,
+            commands::history::update_history,
+            commands::history::clear_history,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
