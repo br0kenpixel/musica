@@ -1,7 +1,9 @@
+import { emit } from "@tauri-apps/api/event";
+
 export class Counter {
     end: number;
-    private current: number;
     paused: boolean;
+    private current: number;
     private callback: (curent: number) => void;
     private tick_triggered: boolean;
     private stop: boolean;
@@ -50,6 +52,8 @@ export class Counter {
         if (!this.paused && this.current < this.end) {
             this.current++;
             this.callback(this.current);
+        } else if (this.current >= this.end) {
+            emit("track_ended");
         }
 
         setTimeout(() => {

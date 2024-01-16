@@ -159,6 +159,10 @@ export default {
                     this.state = PlayerStatus.Playing;
                 }
             });
+
+            await listen("track_ended", (_) => {
+                this.reset();
+            });
         },
         async toggle_playback() {
             switch (this.state) {
