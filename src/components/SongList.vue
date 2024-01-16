@@ -3,6 +3,7 @@ import { prettifyTime } from '../backend/helpers';
 import { type Song } from '../backend/types';
 import '../assets/songlist/styles.css';
 import { update_history } from '../backend/backend';
+import { useShortHistoryStore } from '../stores/short_history';
 </script>
 
 <template>
@@ -15,7 +16,10 @@ export default {
     emits: ['selected'],
 
     data() {
+        const history = useShortHistoryStore();
+
         return {
+            short_history: history,
             songs: [] as Array<Song>,
             headers: [
                 { title: "Title", key: "title" },
@@ -35,6 +39,7 @@ export default {
         },
         async trackSelected(_event: any, { item }: any) {
             this.$emit("selected", item);
+            this.short_history.push(item);
             await update_history(item.id);
         }
     },

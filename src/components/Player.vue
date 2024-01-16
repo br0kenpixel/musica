@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import '../assets/player/styles.css';
 import { prettifyTime } from '../backend/helpers';
-import { pause_playback, resume_playback, set_volume, stop_playback } from '../backend/backend';
+import { pause_playback, play_track, resume_playback, set_volume, stop_playback } from '../backend/backend';
 import VolumeSlider from './VolumeSlider.vue';
 import { Event, listen } from '@tauri-apps/api/event';
 import { PlayerEvent, PlaybackStarted } from '../backend/types';
 import { Counter } from '../counter';
 import { PlayerStatus } from '../player_state';
+import { useShortHistoryStore } from '../stores/short_history';
 </script>
 
 <template>
@@ -49,14 +50,16 @@ import { PlayerStatus } from '../player_state';
         <v-container style="width: 300px !important;">
             <v-row no-gutters>
                 <v-col>
-                    <v-btn icon="mdi-skip-previous" density="compact"></v-btn>
+                    <v-btn icon="mdi-skip-previous" density="compact" :disabled="!short_history.canGoBack || loading"
+                        @click="previous"></v-btn>
                 </v-col>
                 <v-col>
                     <v-btn :icon="PLAY_ICONS[Number(state)]" density="compact" :disabled="state === PlayerStatus.None"
                         @click="toggle_playback"></v-btn>
                 </v-col>
                 <v-col>
-                    <v-btn icon="mdi-skip-next" density="compact"></v-btn>
+                    <v-btn icon="mdi-skip-next" density="compact" :disabled="!short_history.canGoNext || loading"
+                        @click="next"></v-btn>
                 </v-col>
                 <v-col>
                     <v-btn icon="mdi-stop" density="compact" :disabled="state === PlayerStatus.None" @click="stop"></v-btn>
@@ -89,8 +92,10 @@ export default {
 
     data() {
         const counter = new Counter(0, () => { });
+        const history = useShortHistoryStore();
 
         return {
+            short_history: history,
             loading: false,
             counter: counter as Counter,
             realTitle: "-",
@@ -175,6 +180,14 @@ export default {
         },
         async change_volume(value: number) {
             await set_volume(value);
+        },
+        async next() {
+            this.short_history.next();
+            await play_track(this.short_history.currentTrack.id);
+        },
+        async previous() {
+            this.short_history.previous();
+            await play_track(this.short_history.currentTrack.id);
         }
     },
     mounted() {
