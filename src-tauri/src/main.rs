@@ -6,7 +6,8 @@
     clippy::cast_precision_loss,
     clippy::cast_possible_truncation,
     clippy::future_not_send,
-    clippy::cast_lossless
+    clippy::cast_lossless,
+    clippy::significant_drop_tightening
 )]
 
 use db::LibraryDb;

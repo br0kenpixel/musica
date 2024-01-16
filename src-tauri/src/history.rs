@@ -41,7 +41,7 @@ impl HistoryDb {
 
     pub fn cleanup_with(&mut self, library: &LibraryDb) {
         self.0
-            .retain(|path| library.tracks.iter().any(|track| &track.path == path))
+            .retain(|path| library.tracks.iter().any(|track| &track.path == path));
     }
 
     pub async fn save(&self) {
