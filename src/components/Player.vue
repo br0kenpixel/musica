@@ -149,7 +149,6 @@ export default {
 
                     this.displaySongInfo(track.title, track.album, track.artist, track.length);
                     this.loading = false;
-                    console.log("not loading anymore");
 
                     this.counter.resume();
                     this.state = PlayerStatus.Playing;
