@@ -64,13 +64,6 @@ import { useShortHistoryStore } from '../stores/short_history';
                 <v-col>
                     <v-btn icon="mdi-stop" density="compact" :disabled="state === PlayerStatus.None" @click="stop"></v-btn>
                 </v-col>
-                <v-col>
-                    <v-tooltip text="Lyrics" location="bottom">
-                        <template v-slot:activator="{ props }">
-                            <v-btn v-bind="props" icon="mdi-card-text-outline" density="compact" disabled></v-btn>
-                        </template>
-                    </v-tooltip>
-                </v-col>
             </v-row>
 
             <v-row no-gutters>
