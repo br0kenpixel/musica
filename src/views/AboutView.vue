@@ -19,7 +19,7 @@ import { build_type } from '../backend/backend';
         <li>Vuetify</li>
         <li>Tauri</li>
         <li>Vite</li>
-        <li>Bun</li>
+        <li>NPM</li>
     </ul>
 
     <p>Made by <a href="#" @click="() => open('https://github.com/br0kenpixel')">br0kenpixel</a>.</p>
