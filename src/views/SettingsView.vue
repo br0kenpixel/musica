@@ -59,16 +59,6 @@ function updateTheme(theme: string) {
         </div>
 
         <div class="row mb-3">
-            <label for="theme" class="col-sm-2 col-form-label">Library scan</label>
-            <div class="col-sm-2">
-                <select class="form-select form-control" :disabled="locked" v-model="library_scan">
-                    <option value="manual" selected>Manual</option>
-                    <option value="on-start">On start</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="row mb-3">
             <label for="theme" class="col-sm-2 col-form-label">Home Page</label>
             <div class="col-sm-3">
                 <select class="form-select form-control" :disabled="locked" v-model="home_page">
@@ -107,14 +97,12 @@ export default {
             library_path: "Loading...",
             settings_path: "Loading...",
             theme: "light",
-            library_scan: "manual",
             home_page: "history",
         }
     },
     mounted() {
         get_settings().then((settings) => {
             this.theme = settings.theme;
-            this.library_scan = settings.library_scan;
             this.home_page = settings.home;
             this.locked = false;
         });
@@ -126,7 +114,6 @@ export default {
         into_settings(): Settings {
             return {
                 theme: this.theme,
-                library_scan: this.library_scan,
                 home: this.home_page
             };
         },

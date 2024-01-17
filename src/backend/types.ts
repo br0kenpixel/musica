@@ -9,7 +9,6 @@ export type Song = {
 
 export type Settings = {
     readonly theme: string,
-    readonly library_scan: string,
     readonly home: string
 };
 

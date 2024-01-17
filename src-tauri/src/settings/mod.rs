@@ -4,13 +4,12 @@ use crate::{dialog, storage};
 use serde::{Deserialize, Serialize};
 use std::fs;
 use tokio::fs as async_fs;
-use types::{HomePage, ScanPreference, Theme};
+use types::{HomePage, Theme};
 
 #[derive(Serialize, Deserialize, Default, Clone, Copy)]
 #[serde(rename_all = "lowercase")]
 pub struct Settings {
     theme: Theme,
-    library_scan: ScanPreference,
     home: HomePage,
 }
 

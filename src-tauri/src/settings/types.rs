@@ -13,16 +13,6 @@ pub enum Theme {
 
 #[derive(Display, Serialize, Deserialize, Default, Clone, Copy)]
 #[serde(rename_all = "lowercase")]
-pub enum ScanPreference {
-    #[display(fmt = "manual")]
-    #[default]
-    Manual,
-    #[display(fmt = "on-start")]
-    OnStart,
-}
-
-#[derive(Display, Serialize, Deserialize, Default, Clone, Copy)]
-#[serde(rename_all = "lowercase")]
 pub enum HomePage {
     #[display(fmt = "history")]
     #[default]
